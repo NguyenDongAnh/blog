@@ -3,10 +3,13 @@ require('dotenv').config()
 require('./utils/MongoConnection')
 // Use local variable enviroment
 const path = require('path')
+const fs = require('fs')
+const https = require('https')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const compression = require('compression');
+const pem = require('pem');
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const express = require('express')
@@ -15,7 +18,36 @@ const app = next({ dev, port })
 const handle = app.getRequestHandler()
 const server = express()
 
-var allowlist = ['http://192.168.2.179:3080', 'http://192.168.2.179:3000', 'http://rabbitworld.ddns.net']
+const { key, cert } = (() => {
+  try {
+    return {
+      key: fs.readFileSync(`./cert/rabbitworld.ddns.net/privkey.pem`),
+      cert: fs.readFileSync(`./cert/rabbitworld.ddns.net/fullchain.pem`)
+    }
+  } catch (e) {
+    return new Promise((res, rej) => {
+      pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+        if (err) {
+          rej();
+        } else {
+          res({ key: keys.serviceKey, cert: keys.certificate });
+        }
+      });
+    });
+  }
+})();
+
+const httpsServer = https.createServer({ key, cert }, server).listen(443)
+
+server.use(function (request, response, next) {
+
+  if (process.env.NODE_ENV != 'development' && !request.secure && request.headers.host != 'localhost:3000') {
+    return response.redirect("https://" + request.headers.host.replace(/\:.*/, '') + request.url);
+  }
+  next();
+})
+
+var allowlist = ['http://192.168.2.179:3000', 'http://rabbitworld.ddns.net']
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (allowlist.indexOf(req.header('origin')) !== -1) {
@@ -28,11 +60,15 @@ var corsOptionsDelegate = function (req, callback) {
   }
   callback(null, corsOptions) // callback expects two parameters: error and options
 }
+
+
 server.use(cors(corsOptionsDelegate))
 server.use(morgan('dev'))
 server.use(cookieParser())
 server.use('/images', express.static(path.join(__dirname, 'public', 'images')))
-// server.use(compression())
+server.use("/.well-known/acme-challenge", express.static("letsencrypt/.well-known/acme-challenge"));
+
+server.use(compression())
 
 // server.use((req, res, next) => {
 //   console.log(req)
@@ -40,6 +76,9 @@ server.use('/images', express.static(path.join(__dirname, 'public', 'images')))
 //     next()
 //   else return res.json({ message: '403 forbidden' })
 // })
+
+
+
 
 const userRoutes = require('./api/user.routes')
 const postRoutes = require('./api/post.routes')
