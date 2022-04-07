@@ -1,0 +1,77 @@
+.nav {
+    @apply w-full h-16 flex justify-between px-5 py-2 bg-zinc-900 border-b border-gray-500 fixed;
+    z-index: 99;
+}
+
+.nav .nav_header {
+    @apply flex;
+}
+
+.nav .nav_menu__button {
+    @apply flex flex-col justify-center text-white text-2xl cursor-pointer;
+}
+
+.nav .nav_main {
+    @apply sm:flex fixed sm:static sm:w-auto sm:translate-x-0 -translate-x-[240px] ease-in-out duration-300 w-[240px] left-0 bottom-0 top-0 bg-zinc-900 text-white font-normal text-xl mr-2 z-[999];
+}
+
+.nav_main.active {
+    @apply translate-x-0 ease-in-out duration-300;
+}
+
+.nav_link {
+    @apply flex py-1 px-3 sm:mx-1 justify-center content-center text-center cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden;
+}
+
+.nav_main .nav_item {
+    @apply flex flex-row sm:h-auto h-12 justify-center relative overflow-x-hidden;
+}
+
+.nav_item__line {
+    @apply absolute h-[2px] w-full bottom-0 ease-in-out duration-300 bg-gradient-to-r from-amber-500 to-pink-500 -translate-x-[450px];
+}
+
+.nav_link:hover .nav_item__line {
+    @apply translate-x-0;
+}
+
+.nav .nav_search {
+    @apply text-white font-normal text-xl lg:flex hidden;
+}
+
+.nav_search_el {
+    @apply relative flex overflow-hidden;
+}
+
+.nav_search .nav_search__icon {
+    @apply flex flex-col justify-center absolute p-2 top-0 bottom-0 text-pink-500;
+}
+
+.nav_search .nav_search__input {
+    @apply w-[450px] h-full bg-transparent outline-none pl-9;
+}
+
+.nav_search_el .nav_search__input:hover ~ .nav_item__line,
+.nav_search_el .nav_search__input:focus ~ .nav_item__line {
+    @apply translate-x-0 ease-in-out duration-300;
+}
+
+.nav_social_media {
+    @apply flex justify-center p-2 mx-2;
+}
+
+.nav_social_media .nav_social_media__icon {
+    @apply text-white text-2xl mx-1 hover:text-amber-600 cursor-pointer ease-in-out duration-300;
+}
+
+.overlay {
+    @apply fixed left-0 top-0 bottom-0 right-0 bg-black bg-opacity-60 hidden;
+}
+
+.overlay.active {
+    @apply block;
+}
+
+.lock_scrollbar {
+    @apply overflow-y-hidden;
+}

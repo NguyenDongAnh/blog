@@ -1,0 +1,4 @@
+.main {
+  @apply w-full flex absolute top-16 bg-zinc-800 py-8 justify-center;
+  /* height: calc(100vh - theme('spacing.14')); */
+}
