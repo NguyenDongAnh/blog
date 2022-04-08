@@ -5,10 +5,8 @@ import styles from './Layout.module.css'
 function Layout({ children }) {
     return (
         <>
-            <Navbar />
-            {/* <div className={styles.main}> */}
-                {children}
-            {/* </div> */}
+            <Navbar/>
+            {children}
         </>
     )
 }

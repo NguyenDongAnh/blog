@@ -116,6 +116,7 @@ Much more info is available in the
 A component by [Espen Hovlandsdal](https://espen.codes/)
 
 `
+// .replace(/\n\s+/g,'\n')
         });
         post.save();
         return res.status(200).json({ message: 'success', post: post });

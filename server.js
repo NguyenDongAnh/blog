@@ -8,6 +8,7 @@ const https = require('https')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const favicon = require('serve-favicon')
 const compression = require('compression');
 const pem = require('pem');
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -42,11 +43,11 @@ const httpsServer = https.createServer({ key, cert }, server).listen(443)
 server.use(function (request, response, next) {
 
   if (process.env.NODE_ENV != 'development' && !request.secure && request.headers.host != 'localhost:3000') {
-    return response.redirect("https://" + request.headers.host.replace(/\:.*/, '') + request.url);
+    return response.redirect("https://" + request.headers.host + request.url);
   }
   next();
 })
-
+// .replace(/\:.*/, '')
 var allowlist = ['http://192.168.2.179:3000', 'http://rabbitworld.ddns.net']
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
@@ -65,6 +66,7 @@ var corsOptionsDelegate = function (req, callback) {
 server.use(cors(corsOptionsDelegate))
 server.use(morgan('dev'))
 server.use(cookieParser())
+server.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 server.use('/images', express.static(path.join(__dirname, 'public', 'images')))
 server.use("/.well-known/acme-challenge", express.static("letsencrypt/.well-known/acme-challenge"));
 
@@ -76,9 +78,10 @@ server.use(compression())
 //     next()
 //   else return res.json({ message: '403 forbidden' })
 // })
-
-
-
+server.use(function (req, res, next) {
+  res.removeHeader("X-Powered");
+  next();
+});
 
 const userRoutes = require('./api/user.routes')
 const postRoutes = require('./api/post.routes')

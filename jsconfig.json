@@ -5,6 +5,7 @@
             "@/components/*": ["components/*"],
             "@/pages/*": ["pages/*"],
             "@/hooks/*": ["hooks/*"],
+            "@/models/*": ["models/*"],
         }
     },
     "exclude": ["node_modules"]

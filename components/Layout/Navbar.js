@@ -103,7 +103,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className={styles.nav}>
+        <div className={styles.nav} role="navigation" aria-label="Primary Navigation">
             <div className={styles.nav_header}>
                 {isMobile &&
                     <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>

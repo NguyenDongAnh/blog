@@ -1,8 +1,9 @@
+import { Layout } from '@/components/Layout'
 import Head from 'next/head'
 import styles from './Home.module.css'
 export default function Home() {
   return (
-    <>
+    <Layout>
       <Head>
         <title>Home</title>
         <meta name="description" content="Rabbit Home Page" />
@@ -20,8 +21,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </>
-
+    </Layout>
   )
 }
 

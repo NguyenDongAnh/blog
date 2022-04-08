@@ -19,7 +19,13 @@ const PostSchema = new mongoose.Schema({
         type: String
     },
     url: {
-        type: String
+        type: String,
+        default: function () {
+            if (this.slug) {
+                return `https://rabbitworld.ddns.net/blog/${this.slug}`;
+            }
+            return null;
+        }
     },
     published_at: {
         type: Date,

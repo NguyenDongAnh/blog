@@ -43,16 +43,14 @@ function Article(props) {
 
 
     return (
-        <>
-            (<div className={styles.article}>
-                <div className={styles.article_main}>
-                    <div className={styles.article_content}>
-                        <Preview content={data.post.content} />
-                    </div>
-                    <TableOfContents contents={tableOfContents} />
+        <div className={styles.article}>
+            <div className={styles.article_main}>
+                <div className={styles.article_content}>
+                    <Preview content={data.content} />
                 </div>
-            </div>)
-        </>
+                <TableOfContents contents={tableOfContents} />
+            </div>
+        </div>
     )
 }
 
