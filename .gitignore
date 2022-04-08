@@ -29,7 +29,7 @@
 ./.env.development.local
 ./.env.test.local
 ./.env.production.local
-/.env
+H:\blog-test\blog\.env
 
 # vercel
 /.vercel
