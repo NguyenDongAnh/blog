@@ -13,7 +13,8 @@ const PostSchema = new mongoose.Schema({
                 return slugify(this.title).toLowerCase();
             }
             return null;
-        }
+        },
+        unique: true
     },
     transliterated: {
         type: String

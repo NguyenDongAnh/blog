@@ -1,14 +1,6 @@
 User-agent: *
 Allow: /
 
-Disallow: /employers/search
-Disallow: /partners/
-Disallow: /job/getApply
-Disallow: /affiliate/
-Disallow: /challenge/
-Disallow: /topdemy/
-Disallow: /socket.io
-
 User-agent: Adsbot-Google
 Allow: /
 

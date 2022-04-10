@@ -10,7 +10,7 @@ body {
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     /* @apply bg-zinc-800; */
     scroll-padding-top: 112px;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 
 a {

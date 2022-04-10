@@ -113,7 +113,7 @@ const Navbar = () => {
                     <a className={styles.nav_link}>
                         <div className='flex w-[120px]'>
                             <img
-                                src={process.env.BASE_SERVER + "/images/logo.png"}
+                                src={"/images/logo.png"}
                                 className="w-full"
                             />
                         </div>
@@ -133,7 +133,7 @@ const Navbar = () => {
                                         <a className={styles.nav_link}>
                                             <div className='flex w-[120px]'>
                                                 <img
-                                                    src={process.env.BASE_SERVER + "/images/logo.png"}
+                                                    src={"/images/logo.png"}
                                                     className="w-[120px] h-[39px]"
                                                 />
                                             </div>

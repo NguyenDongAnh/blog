@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import dynamic from 'next/dynamic';
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import remarkGFM from "remark-gfm";
