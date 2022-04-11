@@ -40,7 +40,7 @@ const Preview = (props) => {
                                                     <Icon icon="bx:bxs-copy" />
                                                 </div>
                                             </CopyToClipboard>) : ""}
-                                        <code className={"hljs " + className} {...props}>
+                                        <code className={className} {...props}>
                                             {children}
                                         </code>
                                     </>

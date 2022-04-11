@@ -43,7 +43,7 @@ const httpsServer = https.createServer({ key, cert }, server).listen(443)
 server.use(function (request, response, next) {
 
   if (process.env.NODE_ENV != 'development' && !request.secure && request.headers.host != 'localhost:3000') {
-    return response.redirect("https://" + request.headers.host.replace(/\:.*/, '') + request.url);
+    return response.redirect("https://" + request.headers.host + request.url);
   }
   next();
 })

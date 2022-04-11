@@ -2,21 +2,17 @@ import React, { useEffect, useState, useCallback } from 'react'
 import classNames from 'classnames'
 import styles from './TableOfContents.module.css'
 
-let renderCount = 0
 const TableOfContents = (props) => {
-    renderCount = renderCount + 1
-    console.log(renderCount)
+    const { tableOfContents } = props
+    const [activeAnchorLink, setActiveAnchorLink] = useState({ prev: -1, next: 0 })
 
-    const { contents, activeAnchorLinkOnload } = props
-    const [activeAnchorLink, setActiveAnchorLink] = useState(activeAnchorLinkOnload)
-
-    const handleTableOfContentsWhenScroll = (contents) => {
+    const handleScroll = (tableOfContents) => {
         if (activeAnchorLink != undefined) {
             setActiveAnchorLink((item) => {
-                if ((item.next) < contents.length && (contents[item.next].yPosition - window.scrollY) <= 16) {
+                if ((item.next) < tableOfContents.length && (tableOfContents[item.next].top - window.scrollY) <= 16) {
                     return { prev: item.next, next: item.next + 1 }
                 }
-                else if ((item.prev - 1) >= 0 && (contents[item.prev].yPosition - window.scrollY) > 16) {
+                else if ((item.prev - 1) >= 0 && (tableOfContents[item.prev].top - window.scrollY) > 16) {
                     return { prev: item.prev - 1, next: item.prev }
                 }
                 return item
@@ -25,35 +21,44 @@ const TableOfContents = (props) => {
     }
 
     useEffect(() => {
-        window.onscroll = () => handleTableOfContentsWhenScroll(contents)
-        return () => {
-            window.onscroll = null
+        const handleOnload = async () => {
+            const scrollPosition = window.scrollY
+            for (let i = 0; i < tableOfContents.length - 1; i++) {
+                if (tableOfContents[i].top <= scrollPosition + 1 && tableOfContents[i + 1].top - 16 >= scrollPosition) {
+                    await setActiveAnchorLink(() => { return { prev: i, next: i + 1 } })
+                    return;
+                }
+            }
         }
-    }, [contents])
+        handleOnload()
+        window.onscroll = () => handleScroll(tableOfContents)
+        return () => {
+        }
+
+    }, [tableOfContents])
 
     return (
         <div className={styles.article_sidebar}>
             <div className={styles.article_sidebar_header}>
                 <div className={styles.article_sidebar_main}>
                     <ul>
-                        {contents.map((value, idx) => {
+                        {tableOfContents.map((value, idx) => {
                             return (
-                                <a href={`#${value.tagSlug}`} key={idx} onClick={async () => {
+                                <a href={`#${value.slug}`} key={idx} onClick={async () => {
                                     window.onscroll = null
-                                    console.log(activeAnchorLinkOnload)
                                     await setActiveAnchorLink({ prev: idx, next: idx + 1 })
-                                    window.onscroll = () => handleTableOfContentsWhenScroll(contents)
+                                    window.onscroll = () => handleScroll(tableOfContents)
                                 }}>
                                     <li className={
                                         classNames(
                                             styles.article_sidebar_main__element,
-                                            value.index === activeAnchorLink?.prev ? styles.active : "",
-                                            value.tagName === 'H1' ? "pl-3" : "",
-                                            value.tagName === 'H2' ? "pl-7" : "",
-                                            value.tagName === 'H3' ? "pl-11" : ""
+                                            idx === activeAnchorLink?.prev ? styles.active : "",
+                                            value.tag === 'H1' ? "pl-3" : "",
+                                            value.tag === 'H2' ? "pl-7" : "",
+                                            value.tag === 'H3' ? "pl-11" : ""
                                         )
                                     }>
-                                        {value.tagContent}
+                                        {value.title}
                                     </li>
                                 </a>
                             )

@@ -17,8 +17,8 @@ export const TextLine = (props) => {
     const { type } = props
 
     return (
-        <div class="p-2 w-full mx-auto">
-            <div class="before:absolute before:-translate-x-[100%] before:animate-sekeleton before:top-0 before:bottom-0 before:left-0 before:right-0 before:bg-gradient-to-r before:from-slate-200 before:to-slate-100 w-full h-3 bg-slate-200 relative overflow-hidden"></div>
+        <div className="p-2 w-full mx-auto">
+            <div className="before:absolute before:-translate-x-[100%] before:animate-sekeleton before:top-0 before:bottom-0 before:left-0 before:right-0 before:bg-gradient-to-r before:from-slate-200 before:to-slate-100 w-full h-3 bg-slate-200 relative overflow-hidden"></div>
         </div>
     )
 }

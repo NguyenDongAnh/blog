@@ -10,11 +10,11 @@ const Preview = dynamic(() => import('@/components/Preview'))
 const TableOfContents = dynamic(() => import('./TableOfContents'))
 
 function Article(props) {
-
-    const data = props.data
+    const { data } = props
+    const [device, setDevice] = useState()
     const [tableOfContents, setTableOfContents] = useState([])
     const [isPending, startTransition] = useTransition();
-    const [activeAnchorLinkOnload, setActiveAnchorLinkOnload] = useState()
+
     const getSlug = (hTag) => {
         return slugify(hTag.innerText, {
             lower: true,      // convert to lower case, defaults to `false`
@@ -23,50 +23,37 @@ function Article(props) {
     }
 
     useEffect(() => {
-        if (!isMobile && !isTablet) {
-            const hTags = document.querySelectorAll("h1, h2, h3");
-            let anchorLinks = []
-            hTags.forEach((hTag, index) => {
-                const tagName = hTag.tagName
-                const tagContent = hTag.innerText
-                const tagSlug = getSlug(hTag) + `-${index}`
-                hTag.setAttribute("id", tagSlug)
-                anchorLinks.push({
-                    index: index,
-                    tagName: tagName,
-                    tagContent: tagContent,
-                    tagSlug: tagSlug,
-                    yPosition: hTag.offsetTop
+        if (device) {
+            startTransition(() => {
+                const hTags = document.querySelectorAll("h1, h2, h3");
+                let headings = []
+                hTags.forEach((hTag, index) => {
+                    const tag = hTag.tagName
+                    const title = hTag.innerText
+                    const slug = getSlug(hTag) + `-${index}`
+                    hTag.setAttribute("id", slug)
+                    headings.push({
+                        tag: tag,
+                        title: title,
+                        slug: slug,
+                        top: hTag.offsetTop
+                    })
                 })
+                setTableOfContents(() => headings)
             })
-            setTableOfContents(() => anchorLinks)
         }
 
+        return () => {
+
+        }
+    }, [device])
+
+    useEffect(() => {
+        setDevice(!isMobile && !isTablet)
         return () => {
 
         }
     }, [])
-
-    useEffect(() => {
-        const handleOnload = () => {
-            if (!isMobile && !isTablet) {
-                startTransition(async () => {
-                    const scrollPosition = window.scrollY
-                    for (let i = 0; i < tableOfContents.length - 1; i++) {
-                        if (tableOfContents[i].yPosition <= scrollPosition + 1 && tableOfContents[i + 1].yPosition - 16 >= scrollPosition) {
-                            await setActiveAnchorLinkOnload(() => { return { prev: i, next: i + 1 } })
-                            return;
-                        }
-                    }
-                    return setActiveAnchorLinkOnload(() => { return { prev: -1, next: 0 } })
-                })
-            }
-        }
-        handleOnload()
-        return () => {
-
-        }
-    }, [tableOfContents])
 
     return (
         <div className={styles.article}>
@@ -74,35 +61,39 @@ function Article(props) {
                 <div className={styles.article_content}>
                     <Preview content={data.content} />
                 </div>
-                <Sekeleton isPending={isPending}>
-                    <div className='w-full sticky max-h-[100vh] top-[96px]'>
-                        <div className='pl-3'>
-                            <Sekeleton.TextLine />
-                        </div>
-                        <div className='pl-7'>
-                            <Sekeleton.TextLine />
-                        </div>
-                        <div className='pl-11'>
-                            <Sekeleton.TextLine />
-                        </div>
-                        <div className='pl-3'>
-                            <Sekeleton.TextLine />
-                        </div>
-                        <div className='pl-7'>
-                            <Sekeleton.TextLine />
-                        </div>
-                        <div className='pl-11'>
-                            <Sekeleton.TextLine />
-                        </div>
-                        <div className='pl-11'>
-                            <Sekeleton.TextLine />
-                        </div>
-                        <div className='pl-11'>
-                            <Sekeleton.TextLine />
-                        </div>
-                    </div>
-                </Sekeleton>
-                {activeAnchorLinkOnload ? <TableOfContents contents={tableOfContents} activeAnchorLinkOnload={activeAnchorLinkOnload} /> : null}
+                {device ? (
+                    <>
+                        <Sekeleton isPending={isPending}>
+                            <div className='w-full sticky max-h-[100vh] top-[96px]'>
+                                <div className='pl-3'>
+                                    <Sekeleton.TextLine />
+                                </div>
+                                <div className='pl-7'>
+                                    <Sekeleton.TextLine />
+                                </div>
+                                <div className='pl-11'>
+                                    <Sekeleton.TextLine />
+                                </div>
+                                <div className='pl-3'>
+                                    <Sekeleton.TextLine />
+                                </div>
+                                <div className='pl-7'>
+                                    <Sekeleton.TextLine />
+                                </div>
+                                <div className='pl-11'>
+                                    <Sekeleton.TextLine />
+                                </div>
+                                <div className='pl-11'>
+                                    <Sekeleton.TextLine />
+                                </div>
+                                <div className='pl-11'>
+                                    <Sekeleton.TextLine />
+                                </div>
+                            </div>
+                        </Sekeleton>
+                        <TableOfContents tableOfContents={tableOfContents} />
+                    </>
+                ) : null}
             </div>
         </div>
     )

@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        'sekeleton': 'sekeleton 2s ease infinite'
+        'sekeleton': 'sekeleton 1s ease infinite'
       },
       keyframes: {
         'sekeleton': {
