@@ -15,7 +15,7 @@
 }
 
 .nav .nav_main {
-    @apply sm:flex fixed sm:static sm:w-auto sm:translate-x-0 -translate-x-[240px] ease-in-out duration-300 w-[240px] left-0 bottom-0 top-0 bg-zinc-900 text-white font-normal text-lg mr-2 z-[999];
+    @apply sm:flex fixed sm:static sm:w-auto sm:translate-x-0 -translate-x-[240px] ease-in-out duration-300 w-[240px] left-0 bottom-0 top-0 bg-zinc-900 text-white font-normal text-lg mr-2;
 }
 
 .nav_main.active {
@@ -60,7 +60,7 @@
 }
 
 .nav_footer {
-    @apply flex justify-center p-2 mx-1 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden text-lg;
+    @apply flex justify-center p-2 mx-1 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden text-lg cursor-pointer;
 }
 
 .nav_footer .nav_footer__icon {
@@ -68,7 +68,7 @@
 }
 
 .overlay {
-    @apply fixed left-0 top-0 bottom-0 right-0 bg-black bg-opacity-60 hidden;
+    @apply fixed left-0 top-0 bottom-0 right-0 bg-black bg-opacity-60 hidden z-[100];
 }
 
 .overlay.active {
@@ -78,3 +78,4 @@
 .lock_scrollbar {
     @apply overflow-y-hidden;
 }
+

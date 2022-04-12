@@ -11,6 +11,8 @@ import useDeviceDetect from '@/hooks/useDeviceDetect';
 const SearchBar = () => {
     const [fuzzySearchValues, setfuzzySearchValues] = useState([])
     const [searchResults, setSearchResults] = useState([])
+    const [openLogin, setOpenLogin] = useState()
+
     const handleSearchChange = async (e, names) => {
         const { value } = e.currentTarget
         // Dynamically load fuse.js
@@ -21,7 +23,6 @@ const SearchBar = () => {
         const fuse = new Fuse(names, options)
         setSearchResults(fuse.search(value, { limit: 5 }))
     }
-
     useEffect(() => {
         setfuzzySearchValues(() => [
             {
@@ -122,7 +123,7 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className='flex'>
-                    <div className={classNames(styles.nav_main, isLeftSidebarActive ? styles.active : null)}>
+                    <div className={classNames(styles.nav_main, isLeftSidebarActive ? classNames(styles.active,'z-[999]') : null)}>
                         {isMobile &&
                             <>
                                 <div className="flex flex-row xl:h-auto h-16 p-1 justify-center">
@@ -168,16 +169,18 @@ const Navbar = () => {
                             </Link>
                         </div>
                     </div>
-                    {isMobile && <div className={classNames(styles.overlay, isLeftSidebarActive ? styles.active : "")} onClick={handleMenuButtonOnClick}></div>}
+                    {isMobile && <div className={classNames(styles.overlay, isLeftSidebarActive ? styles.active : null)} onClick={handleMenuButtonOnClick}></div>}
                     <SearchBar />
-                    <a className={styles.nav_footer}>
+                    <div className={styles.nav_footer}>
                         <div className={styles.nav_footer__icon}>
                             <Icon icon="fe:login" />
                         </div>
                         <span className='my-auto'>
                             ĐĂNG NHẬP
                         </span>
-                    </a>
+                    </div>
+                    {/* <div className={classNames(styles.overlay, styles.active)}>
+                    </div> */}
                 </div>
             </div>
         </div >
