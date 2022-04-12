@@ -18,7 +18,7 @@ opts = {
 }
 
 const connection = mongoose.connect(MONGODB_URI, opts, (err, db) => {
-    if(!err) console.log("Connected!")
+    if (!err) console.log("Connected!")
     else console.log(err.message)
 })
 

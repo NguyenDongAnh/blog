@@ -10,7 +10,7 @@
 }
 
 .article .article_main {
-    @apply max-w-6xl w-full h-full flex m-auto relative lg:justify-between justify-center;
+    @apply max-w-7xl w-full h-full flex m-auto relative lg:justify-between justify-center;
 }
 
 .article_main .article_content {

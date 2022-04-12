@@ -63,7 +63,7 @@ const SearchBar = () => {
                 <input className={styles.nav_search__input} placeholder='Search' onChange={(e) => handleSearchChange(e, fuzzySearchValues)} />
                 <span className={styles.nav_item__line}></span>
             </div>
-            <div className="absolute top-[60px] text-white w-full max-w-[450px] mt-1">
+            <div className="absolute top-[60px] text-white w-full max-w-[400px] mt-1">
                 {searchResults.map((result) => {
                     // console.log(result)
                     return (
@@ -104,81 +104,83 @@ const Navbar = () => {
 
     return (
         <div className={styles.nav} role="navigation" aria-label="Primary Navigation">
-            <div className={styles.nav_header}>
-                {isMobile &&
-                    <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>
-                        <Icon icon="gg:menu" />
-                    </div>}
-                <Link href="/">
-                    <a className={styles.nav_link}>
-                        <div className='flex w-[120px]'>
-                            <img
-                                src={"/images/logo.png"}
-                                className="w-full"
-                            />
-                        </div>
-                    </a>
-                </Link>
-            </div>
-            <div className='flex'>
-                <div className={classNames(styles.nav_main, isLeftSidebarActive ? styles.active : "")}>
+            <div className={styles.nav_content}>
+                <div className={styles.nav_header}>
                     {isMobile &&
-                        <>
-                            <div className="flex flex-row sm:h-auto h-16 p-1 justify-center">
-                                <div className={styles.nav_link}>
-                                    <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>
-                                        <Icon icon="gg:menu" />
-                                    </div>
-                                    <Link href="/">
-                                        <a className={styles.nav_link}>
-                                            <div className='flex w-[120px]'>
-                                                <img
-                                                    src={"/images/logo.png"}
-                                                    className="w-[120px] h-[39px]"
-                                                />
-                                            </div>
-                                        </a>
-                                    </Link>
-                                </div>
+                        <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>
+                            <Icon icon="gg:menu" />
+                        </div>}
+                    <Link href="/">
+                        <a className={styles.nav_link}>
+                            <div className='flex w-[120px]'>
+                                <img
+                                    src={"/images/logo.png"}
+                                    className="w-full"
+                                />
                             </div>
-                        </>}
-                    <div className={styles.nav_item}>
-                        <Link href="/">
-                            <div className={styles.nav_link}>
-                                <span className='my-auto'>HOME</span>
-                                <span className={styles.nav_item__line}></span>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className={styles.nav_item}>
-                        <Link href="/post/Huong-dan-su-dung-react-markdown">
-                            <div className={styles.nav_link}>
-                                <span className='my-auto'>ABOUT</span>
-                                <span className={styles.nav_item__line}></span>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className={styles.nav_item}>
-                        <Link href="/contact">
-                            <div className={styles.nav_link}>
-                                <span className='my-auto'>CONTACT</span>
-                                <span className={styles.nav_item__line}></span>
-                            </div>
-                        </Link>
-                    </div>
+                        </a>
+                    </Link>
                 </div>
-                {isMobile && <div className={classNames(styles.overlay, isLeftSidebarActive ? styles.active : "")} onClick={handleMenuButtonOnClick}></div>}
-                <SearchBar />
-                <div className={styles.nav_social_media}>
-                    <a href='https://www.facebook.com/bumerang.super.9' target={'_blank'} className={styles.nav_social_media__icon}>
-                        <Icon icon="icon-park-outline:facebook-one" />
-                    </a>
-                    <a className={styles.nav_social_media__icon}>
-                        <Icon icon="cib:instagram" />
+                <div className='flex'>
+                    <div className={classNames(styles.nav_main, isLeftSidebarActive ? styles.active : null)}>
+                        {isMobile &&
+                            <>
+                                <div className="flex flex-row xl:h-auto h-16 p-1 justify-center">
+                                    <div className={styles.nav_link}>
+                                        <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>
+                                            <Icon icon="gg:menu" />
+                                        </div>
+                                        <Link href="/">
+                                            <a className={styles.nav_link}>
+                                                <div className='flex w-[120px]'>
+                                                    <img
+                                                        src={"/images/logo.png"}
+                                                        className="w-[120px] h-[39px]"
+                                                    />
+                                                </div>
+                                            </a>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </>}
+                        <div className={styles.nav_item}>
+                            <Link href="/">
+                                <div className={styles.nav_link}>
+                                    <span className='my-auto'>BÀI VIẾT</span>
+                                    <span className={styles.nav_item__line}></span>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className={styles.nav_item}>
+                            <Link href="/blog/huong-dan-su-dung-react-markdown">
+                                <div className={styles.nav_link}>
+                                    <span className='my-auto'>SERIES</span>
+                                    <span className={styles.nav_item__line}></span>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className={styles.nav_item}>
+                            <Link href="/contact">
+                                <div className={styles.nav_link}>
+                                    <span className='my-auto'>CHAT</span>
+                                    <span className={styles.nav_item__line}></span>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                    {isMobile && <div className={classNames(styles.overlay, isLeftSidebarActive ? styles.active : "")} onClick={handleMenuButtonOnClick}></div>}
+                    <SearchBar />
+                    <a className={styles.nav_footer}>
+                        <div className={styles.nav_footer__icon}>
+                            <Icon icon="fe:login" />
+                        </div>
+                        <span className='my-auto'>
+                            ĐĂNG NHẬP
+                        </span>
                     </a>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

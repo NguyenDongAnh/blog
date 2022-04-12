@@ -8,9 +8,7 @@ body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    /* @apply bg-zinc-800; */
     scroll-padding-top: 112px;
-    /* scroll-behavior: smooth; */
 }
 
 a {
