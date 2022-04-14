@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 
 export const Avatar = (props) => {
     return (
-        <div class="animate-pulse flex space-x-4">
-            <div class="rounded-full bg-slate-200 h-10 w-10"></div>
+        <div className="animate-pulse flex space-x-4">
+            <div className="rounded-full bg-slate-200 h-11 w-11"></div>
         </div>
     )
 }

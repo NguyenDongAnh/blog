@@ -15,7 +15,7 @@ const Preview = (props) => {
 
     const { content, device, setTableOfContents, startTransition } = props;
     const preview = useRef()
-    
+
     const getSlug = (hTag) => {
         return slugify(hTag.innerText, {
             lower: true,      // convert to lower case, defaults to `false`
@@ -28,7 +28,9 @@ const Preview = (props) => {
             startTransition(() => {
                 const hTags = preview.current.querySelectorAll("h1, h2, h3");
                 let headings = []
+                const scrollPosition = window.scrollY
                 hTags.forEach((hTag, index) => {
+                    console.log(hTag.getBoundingClientRect().top + scrollPosition)
                     const tag = hTag.tagName
                     const title = hTag.innerText
                     const slug = getSlug(hTag) + `-${index}`
@@ -37,7 +39,7 @@ const Preview = (props) => {
                         tag: tag,
                         title: title,
                         slug: slug,
-                        top: hTag.offsetTop
+                        top: hTag.getBoundingClientRect().top + scrollPosition
                     })
                 })
                 setTableOfContents(() => headings)

@@ -26,6 +26,32 @@ function Article(props) {
 
     return (
         <div className={styles.article}>
+            <div className='mx-auto mb-10 max-w-7xl px-4'>
+                <div className='flex mb-8'>
+                    <div className='mr-4'>
+                        <div className="flex space-x-4">
+                            <div>
+                                <img src="/images/chandung.jpg" alt="" className='h-11 w-11 rounded-full' />
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className='capitalize'>Nguyễn Đông Anh</div>
+                        <div className='flex flex-wrap items-center text-sm'>
+                            <p className='leading-5'>
+                                <span>Apr 11</span>
+                            </p>
+                            <div className='inline-block px-2'>
+                                <span className='leading-5'>·</span>
+                            </div>
+                            <div>
+                                <span className='leading-5'>16 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 className='text-5xl font-bold flex flex-wrap'>{data.title}</h1>
+            </div>
             <div className={styles.article_main}>
                 <div className={styles.article_content}>
                     <Preview
@@ -53,7 +79,7 @@ function Article(props) {
                                 </div>
                             </div>
                         </Sekeleton>
-                        <TableOfContents tableOfContents={tableOfContents}/>
+                        <TableOfContents tableOfContents={tableOfContents} />
                     </>
                 ) : null}
             </div>

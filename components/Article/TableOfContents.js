@@ -8,11 +8,12 @@ const TableOfContents = (props) => {
 
     const handleScroll = (tableOfContents) => {
         if (activeAnchorLink != undefined) {
+            const scrollPosition = window.scrollY
             setActiveAnchorLink((item) => {
-                if ((item.next) < tableOfContents.length && (tableOfContents[item.next].top - window.scrollY) <= 16) {
+                if ((item.next) < tableOfContents.length && (tableOfContents[item.next].top - scrollPosition) <= 116) {
                     return { prev: item.next, next: item.next + 1 }
                 }
-                else if ((item.prev - 1) >= 0 && (tableOfContents[item.prev].top - window.scrollY) > 16) {
+                else if ((item.prev - 1) >= 0 && (tableOfContents[item.prev].top - scrollPosition) > 116) {
                     return { prev: item.prev - 1, next: item.prev }
                 }
                 return item
@@ -23,7 +24,7 @@ const TableOfContents = (props) => {
     const handleOnload = async () => {
         const scrollPosition = window.scrollY
         for (let i = 0; i < tableOfContents.length - 1; i++) {
-            if (tableOfContents[i].top <= scrollPosition + 1 && tableOfContents[i + 1].top - 16 >= scrollPosition) {
+            if (tableOfContents[i].top <= scrollPosition + 116 && tableOfContents[i + 1].top - 116 >= scrollPosition) {
                 await setActiveAnchorLink(() => { return { prev: i, next: i + 1 } })
                 return;
             }
