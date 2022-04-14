@@ -64,23 +64,23 @@ const SearchBar = () => {
                 <input className={styles.nav_search__input} placeholder='Search' onChange={(e) => handleSearchChange(e, fuzzySearchValues)} />
                 <span className={styles.nav_item__line}></span>
             </div>
-            <div className="absolute top-[60px] text-white w-full max-w-[400px] mt-1">
+            <div className="absolute top-[60px] text-white w-full max-w-[390px] mt-1">
                 {searchResults.map((result) => {
                     // console.log(result)
                     return (
                         <Link href="/" key={result.refIndex}>
                             <a>
                                 <div className='w-full flex p-2 bg-zinc-700 border-b'>
-                                    <div className='mr-2 flex justify-center content-center min-w-[100px] max-w-[100px] max-h-[100px]'>
+                                    {/* <div className='mr-2 flex justify-center content-center min-w-[100px] max-w-[100px] max-h-[100px]'>
                                         <img
                                             src={result.item.image}
                                             className="w-full"
                                         />
-                                    </div>
+                                    </div> */}
                                     <div>
                                         {result.item.title}
                                         <div className='text-xs'>
-                                            {/* {result.item.description} */}
+                                            {result.item.description}
                                         </div>
                                     </div>
                                 </div>

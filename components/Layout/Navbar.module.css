@@ -51,7 +51,7 @@
 }
 
 .nav_search .nav_search__input {
-    @apply w-[400px] h-full bg-transparent outline-none pl-9;
+    @apply w-[390px] h-full bg-transparent outline-none pl-9;
 }
 
 .nav_search_el .nav_search__input:hover ~ .nav_item__line,

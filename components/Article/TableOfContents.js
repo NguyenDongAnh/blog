@@ -20,16 +20,17 @@ const TableOfContents = (props) => {
         }
     }
 
-    useEffect(() => {
-        const handleOnload = async () => {
-            const scrollPosition = window.scrollY
-            for (let i = 0; i < tableOfContents.length - 1; i++) {
-                if (tableOfContents[i].top <= scrollPosition + 1 && tableOfContents[i + 1].top - 16 >= scrollPosition) {
-                    await setActiveAnchorLink(() => { return { prev: i, next: i + 1 } })
-                    return;
-                }
+    const handleOnload = async () => {
+        const scrollPosition = window.scrollY
+        for (let i = 0; i < tableOfContents.length - 1; i++) {
+            if (tableOfContents[i].top <= scrollPosition + 1 && tableOfContents[i + 1].top - 16 >= scrollPosition) {
+                await setActiveAnchorLink(() => { return { prev: i, next: i + 1 } })
+                return;
             }
         }
+    }
+
+    useEffect(() => {
         handleOnload()
         window.onscroll = () => handleScroll(tableOfContents)
         return () => {

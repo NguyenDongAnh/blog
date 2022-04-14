@@ -64,7 +64,7 @@ var corsOptionsDelegate = function (req, callback) {
 
 
 server.use(cors(corsOptionsDelegate))
-server.use(morgan('dev'))
+server.use(morgan('common'))
 server.use(cookieParser())
 server.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 server.use('/images', express.static(path.join(__dirname, 'public', 'images')))
@@ -78,6 +78,7 @@ server.use(compression())
 //     next()
 //   else return res.json({ message: '403 forbidden' })
 // })
+
 server.use(function (req, res, next) {
   res.removeHeader("X-Powered");
   next();
@@ -85,6 +86,7 @@ server.use(function (req, res, next) {
 
 const userRoutes = require('./api/user.routes')
 const postRoutes = require('./api/post.routes')
+
 server.use('/api/user', userRoutes)
 server.use('/api/post', postRoutes)
 

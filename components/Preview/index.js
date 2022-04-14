@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import dynamic from 'next/dynamic';
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
@@ -12,8 +12,10 @@ import styles from './Preview.module.css'
 import slugify from 'slugify';
 
 const Preview = (props) => {
-    const { content, device, setTableOfContents, startTransition } = props;
 
+    const { content, device, setTableOfContents, startTransition } = props;
+    const preview = useRef()
+    
     const getSlug = (hTag) => {
         return slugify(hTag.innerText, {
             lower: true,      // convert to lower case, defaults to `false`
@@ -23,9 +25,8 @@ const Preview = (props) => {
 
     useEffect(() => {
         if (device) {
-            console.log(device)
             startTransition(() => {
-                const hTags = document.querySelectorAll("h1, h2, h3");
+                const hTags = preview.current.querySelectorAll("h1, h2, h3");
                 let headings = []
                 hTags.forEach((hTag, index) => {
                     const tag = hTag.tagName
@@ -39,7 +40,6 @@ const Preview = (props) => {
                         top: hTag.offsetTop
                     })
                 })
-                console.log(headings)
                 setTableOfContents(() => headings)
             })
         }
@@ -50,7 +50,7 @@ const Preview = (props) => {
     }, [device])
 
     return (
-        <div className={styles.preview}>
+        <div className={styles.preview} ref={preview}>
             <div className="markdown-body">
                 <ReactMarkdown
                     {...props}

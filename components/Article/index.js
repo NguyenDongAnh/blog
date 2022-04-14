@@ -4,14 +4,13 @@ import TableOfContents from './TableOfContents'
 import dynamic from 'next/dynamic'
 // import PropTypes from 'prop-types'
 import styles from './Article.module.css'
+import slugify from 'slugify'
 import { isMobile, isTablet } from 'react-device-detect';
 
 const Preview = dynamic(() => import('@/components/Preview'))
+// const TableOfContents = dynamic(() => import('./TableOfContents'))
 
-
-let renderCount = 0
 function Article(props) {
-    console.log(++renderCount)
     const { data } = props
     const [device, setDevice] = useState()
     const [tableOfContents, setTableOfContents] = useState([])
@@ -19,6 +18,7 @@ function Article(props) {
 
     useEffect(() => {
         setDevice(!isMobile && !isTablet)
+
         return () => {
 
         }
@@ -51,21 +51,9 @@ function Article(props) {
                                 <div className='pl-3'>
                                     <Sekeleton.TextLine />
                                 </div>
-                                <div className='pl-7'>
-                                    <Sekeleton.TextLine />
-                                </div>
-                                <div className='pl-11'>
-                                    <Sekeleton.TextLine />
-                                </div>
-                                <div className='pl-11'>
-                                    <Sekeleton.TextLine />
-                                </div>
-                                <div className='pl-11'>
-                                    <Sekeleton.TextLine />
-                                </div>
                             </div>
                         </Sekeleton>
-                        <TableOfContents tableOfContents={tableOfContents} />
+                        <TableOfContents tableOfContents={tableOfContents}/>
                     </>
                 ) : null}
             </div>
