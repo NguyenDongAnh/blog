@@ -33,7 +33,13 @@ const PostSchema = new mongoose.Schema({
         default: Date.now
     },
     description: {
-        type: String
+        type: String,
+        default: function () {
+            if (this.content.length > 397) {
+                return this.content.substring(1, 397) + '...'
+            }
+            return this.content
+        }
     },
     thumnail: {
         type: String

@@ -6,8 +6,8 @@ const createPost = (req, res) => {
         let post = new Post({
             title: "Hướng dẫn sử dụng react-markdown",
             owner: ObjectID('624d96c9c48b679cb4e986b8'),
-            content: 
-`
+            content:
+                `
 # A demo of \`react-markdown\`
             
 \`react-markdown\` is a markdown component for React.
@@ -115,7 +115,8 @@ Much more info is available in the
             
 A component by [Espen Hovlandsdal](https://espen.codes/)
 `
-// .replace(/\n\s+/g,'\n')
+.replace(/\n[^\S\n]+/g, '\n')
+
         });
         post.save();
         return res.status(200).json({ message: 'success', post: post });

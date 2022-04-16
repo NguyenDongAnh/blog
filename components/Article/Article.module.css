@@ -4,9 +4,15 @@
 }
 
 .article .article_header {
+    @apply mx-auto mb-10 max-w-7xl px-4
 }
 
-.article .article_header__image {
+.article_header .article_header__title {
+    @apply text-5xl font-bold flex flex-wrap
+}
+
+.article_header .article_header__author_name {
+    @apply capitalize
 }
 
 .article .article_main {

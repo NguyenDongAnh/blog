@@ -2,8 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import classNames from 'classnames'
 import styles from './TableOfContents.module.css'
 
-const TableOfContents = (props) => {
-    const { tableOfContents } = props
+const TableOfContents = ({ tableOfContents }) => {
     const [activeAnchorLink, setActiveAnchorLink] = useState({ prev: -1, next: 0 })
 
     const handleScroll = (tableOfContents) => {

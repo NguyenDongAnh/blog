@@ -1,0 +1,3 @@
+.avatar {
+    @apply object-cover rounded-full;
+}

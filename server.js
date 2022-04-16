@@ -64,7 +64,7 @@ var corsOptionsDelegate = function (req, callback) {
 
 
 server.use(cors(corsOptionsDelegate))
-server.use(morgan('dev'))
+server.use(morgan('common'))
 server.use(cookieParser())
 server.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 server.use('/images', express.static(path.join(__dirname, 'public', 'images')))
