@@ -1,11 +1,10 @@
 import Head from 'next/head'
 
-export default function SEO({ description, title, siteTitle, url }) {
+export default function SEO({ description, title, siteTitle, url, image }) {
   return (
     <Head>
       <title>{`${title} - ${siteTitle}`}</title>
       <link rel="canonical" href={url} />
-      <link rel="icon" type="image/x-icon" href="/favicon.ico"></link>
       <meta name="description" content={description} />
       {/* <meta name="Author" content="Truyện tranh NetTruyen"/> */}
       <meta name="language" content="vi" />
@@ -17,12 +16,15 @@ export default function SEO({ description, title, siteTitle, url }) {
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content={siteTitle} />
+      <meta property="og:image" content={image} />
       <meta property="og:image:width" content="1201" />
       <meta property="og:image:height" content="628" />
-      <meta property="twitter:card" content="summary_large_image" />
-      {/* <meta property="twitter:creator" content="@Rabbit" /> */}
-      <meta property="twitter:title" content={title} />
-      <meta property="twitter:description" content={description} />
+      <meta name="twitter:card" content="photo" />
+      <meta name="twitter:creator" content="@Rabbit" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image:src" content={image} />
+      <meta name="mobile-web-app-capable" content="yes"/>
     </Head>
   )
 }

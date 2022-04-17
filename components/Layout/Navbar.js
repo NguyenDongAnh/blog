@@ -161,9 +161,9 @@ const Navbar = () => {
                             </Link>
                         </div>
                         <div className={styles.nav_item}>
-                            <Link href="/contact">
+                            <Link href="/games">
                                 <div className={styles.nav_link}>
-                                    <span className='my-auto'>CHAT</span>
+                                    <span className='my-auto'>GAMES</span>
                                     <span className={styles.nav_item__line}></span>
                                 </div>
                             </Link>

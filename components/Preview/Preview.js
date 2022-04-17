@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
-import dynamic from 'next/dynamic';
+import React, { useEffect, useRef } from 'react'
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import remarkGFM from "remark-gfm";
@@ -10,6 +9,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Icon } from '@iconify/react';
 import styles from './Preview.module.css'
 import slugify from 'slugify';
+
+// const rehypeKatex = dynamic(() => import("rehype-katex").then((mod) => mod.default))
 
 const Preview = (props) => {
 

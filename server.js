@@ -48,7 +48,7 @@ server.use(function (request, response, next) {
   next();
 })
 
-var allowlist = ['http://192.168.2.179:3000', 'http://rabbitworld.ddns.net']
+var allowlist = ['http://192.168.2.179:3000', 'http://rabbitworld.ddns.net','https://www.googletagmanager.com','https://www.google-analytics.com']
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (allowlist.indexOf(req.header('origin')) !== -1) {

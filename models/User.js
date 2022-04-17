@@ -85,4 +85,18 @@ UserSchema.set('toJSON', {
     }
 });
 
+UserSchema.set('toObject', {
+    virtuals: true
+});
+
+UserSchema.virtual('posts', {
+    ref: 'Post',
+    localField: '_id',
+    foreignField: 'owner'
+});
+
+UserSchema.virtual('fullname').get(function () {
+    return this.firstname.trim() + " " + this.lastname.trim()
+})
+
 module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

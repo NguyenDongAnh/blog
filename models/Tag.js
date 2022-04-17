@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const TagSchema = mongoose.Schema({
     nameTag: {
-        type: String
+        type: String,
+        unique: true
     }
 })
 

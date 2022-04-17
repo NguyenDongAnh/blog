@@ -10,4 +10,4 @@ Allow: /
 Allow: /*.js*
 Allow: /*.css*
 
-#Sitemap: https://topdev.vn/sitemap.xml
+Sitemap: https://rabbitworld.ddns.net/sitemap.xml

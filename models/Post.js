@@ -23,7 +23,7 @@ const PostSchema = new mongoose.Schema({
         type: String,
         default: function () {
             if (this.slug) {
-                return `https://rabbitworld.ddns.net/blog/${this.slug}`;
+                return `/blog/${this.slug}`;
             }
             return null;
         }
@@ -42,7 +42,8 @@ const PostSchema = new mongoose.Schema({
         }
     },
     thumnail: {
-        type: String
+        type: String,
+        default:'/images/rabbit.png'
     },
     content: {
         type: String
