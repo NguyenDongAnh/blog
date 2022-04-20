@@ -1,6 +1,6 @@
 //Connect Db
 require('dotenv').config()
-require('./utils/MongoConnection')
+require('./libs/MongoConnection')
 // Use local variable enviroment
 const path = require('path')
 const fs = require('fs')

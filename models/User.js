@@ -63,6 +63,10 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     }],
+    reading_list: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
     last_login: {
         type: Date,
         default: Date.now

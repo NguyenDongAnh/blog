@@ -1,27 +1,45 @@
+import Post from '@/models/Post'
 import { Layout } from '@/components/Layout'
 import Head from 'next/head'
 import styles from './Home.module.css'
-export default function Home() {
+import { Slider } from '@/components/Slider'
+
+export default function Home({ data }) {
   return (
     <Layout>
       <Head>
-        <title>Home</title>
+        <title>Bài viết</title>
         <meta name="description" content="Rabbit Home Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.main}>
-        <div className="md:flex">
-          <div className="md:flex-shrink-0">
-            <img className="rounded-lg md:w-56" src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=448&q=80" width="448" height="299" alt="Woman paying for a purchase" />
-          </div>
-          <div className="mt-4 md:mt-0 md:ml-6">
-            <div className="uppercase tracking-wide text-sm text-indigo-600 font-bold">Marketing</div>
-            <a href="#" className="block mt-1 text-lg leading-tight font-semibold text-gray-900 hover:underline">Finding customers for your new business</a>
-            <p className="mt-2 text-gray-600">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
-          </div>
+        <div className='max-w-7xl w-full'>
+          <Slider data={data} />
         </div>
       </div>
     </Layout>
   )
+}
+
+export async function getServerSideProps(context) {
+  // Fetch data from database
+  try {
+    let post = await Post.find().populate({
+      path: 'owner'
+    }).exec()
+
+    const data = JSON.parse(JSON.stringify(post))
+    if (!data) {
+      return {
+        notFound: true,
+      }
+    }
+
+    return {
+      props: { data }  // will be passed to the page component as props
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
 

@@ -1,7 +1,9 @@
-import React, { useEffect, useState, Suspense, useMemo, useTransition } from 'react'
-import dynamic from 'next/dynamic'
+import React, { useEffect, useState, Suspense, useMemo, useTransition, useCallback } from 'react'
+import { Icon } from '@iconify/react';
 import { isMobile, isTablet } from 'react-device-detect';
+import dynamic from 'next/dynamic'
 import { format } from '@lukeed/ms';
+import numeral from 'numeral';
 import { Sekeleton } from '@/components/Sekeleton'
 import { Avatar } from '@/components/Avatar'
 import TableOfContents from './TableOfContents'
@@ -23,9 +25,11 @@ function Article({ data }) {
     }, [data.createdAt])
 
     const readTime = useMemo(() => {
-        const time = Math.round(data.content.length / 800) * 60 * 1000;
+        const time = Math.round(data.content.length / 820) * 60 * 1000;
         return format(time, true).replace('minutes', 'min');
     }, [data.content])
+
+    const formatNumber = useCallback((number) => numeral(number).format('0.0a'), [])
 
     useEffect(() => {
         setDevice(!isMobile && !isTablet)
@@ -44,7 +48,7 @@ function Article({ data }) {
                         </div>
                         <div>
                             <div className={styles.article_header__author_name}>{data.owner.fullname}</div>
-                            <div className='flex items-center text-sm'>
+                            <div className={styles.article_header__time_detail}>
                                 <p>
                                     <span>{createdDate}</span>
                                 </p>
@@ -58,6 +62,20 @@ function Article({ data }) {
                         </div>
                     </div>
                     <FunctionButton />
+                </div>
+                <div className='flex text-zinc-400 mb-1'>
+                    <div className='flex items-center' aria-label='Number of views'>
+                        <Icon icon="carbon:view-filled" width="18" height="18" />
+                        <span className='ml-1 mr-2 text-sm'>{data.views}</span>
+                    </div>
+                    <div className='flex items-center' aria-label='Number of likes'>
+                        <Icon icon="bxs:like" width="18" height="18" />
+                        <span className='ml-1 mr-2 text-sm' >{formatNumber(120000)}</span>
+                    </div>
+                    <div className='flex items-center' aria-label='Number of dislikes'>
+                        <Icon icon="bxs:dislike" width="18" height="18" />
+                        <span className='ml-1 mr-2 text-sm'>{formatNumber(1200)}</span>
+                    </div>
                 </div>
                 <h1 className={styles.article_header__title}>{data.title}</h1>
             </div>

@@ -43,7 +43,7 @@ const PostSchema = new mongoose.Schema({
     },
     thumnail: {
         type: String,
-        default:'/images/rabbit.png'
+        default: '/images/rabbit.png'
     },
     content: {
         type: String
@@ -66,7 +66,8 @@ const PostSchema = new mongoose.Schema({
         ref: 'Comment'
     }],
     views: {
-        type: Number
+        type: Number,
+        default: 0
     },
     tags: [{
         type: mongoose.Schema.Types.ObjectId,

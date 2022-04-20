@@ -39,7 +39,7 @@ const TableOfContents = ({ tableOfContents }) => {
     }, [tableOfContents])
 
     return (
-        <div className={styles.article_sidebar}>
+        <div className={styles.article_sidebar} aria-label='Table of contents'>
             <div className={styles.article_sidebar_header}>
                 <div className={styles.article_sidebar_main}>
                     <ul>

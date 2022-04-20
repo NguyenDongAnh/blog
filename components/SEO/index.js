@@ -1,16 +1,18 @@
 import Head from 'next/head'
 
-export default function SEO({ description, title, siteTitle, url, image }) {
+export default function SEO({ description, title, siteTitle, url, image, createdAt, updatedAt }) {
   return (
     <Head>
       <title>{`${title} - ${siteTitle}`}</title>
       <link rel="canonical" href={url} />
       <meta name="description" content={description} />
-      {/* <meta name="Author" content="Truyện tranh NetTruyen"/> */}
       <meta name="language" content="vi" />
       <meta name="robots" content="index, follow" />
       <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
       <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+      <meta property="article:published_time" content={createdAt} />
+      <meta property="article:modified_time" content={updatedAt} />
+      <meta property="og:updated_time" content={updatedAt} />
       <meta property="og:type" content="article" />
       <meta property="og:locale" content="vi_VN" />
       <meta property="og:title" content={title} />
@@ -24,13 +26,15 @@ export default function SEO({ description, title, siteTitle, url, image }) {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image:src" content={image} />
-      <meta name="mobile-web-app-capable" content="yes"/>
+      <meta name="mobile-web-app-capable" content="yes" />
     </Head>
   )
 }
 {/*
+<meta name="Author" content="Truyện tranh NetTruyen"/> 
 <meta property="og:url" content="https://hocweb.vn/10-react-components-moi-tuyet-voi-nhat-04-2020/">
 <meta property="article:publisher" content="https://www.facebook.com/topdevvietnam/"></meta>
+<meta property="article:author" content="https://www.facebook.com/topdevvietnam/"></meta>
 <meta property="article:published_time" content="2020-09-28T02:32:12+00:00"></meta>
 <meta property="article:modified_time" content="2021-09-20T08:25:30+00:00"></meta>
 <meta property="og:updated_time" content="2021-03-31T04:43:43+07:00">

@@ -12,31 +12,40 @@ export default function Blog({ data }) {
         siteTitle={"rabbitworld.ddns.net"}
         description={data.description}
         url={data.url}
-        image={data.thumnail} />
+        image={data.thumnail}
+        createdAt={data.createdAt}
+        updatedAt={data.updatedAt}
+      />
       <Article data={data} />
     </Layout>
   )
 }
 
 export async function getServerSideProps(context) {
-  // Fetch data from external API
-  let post = await Post.findOneAndUpdate({ slug: context.params.slug }).populate({
-    path: 'owner'
-  }).exec()
+  // Fetch data from database
+  try {
+    let post = await Post.findOneAndUpdate({ slug: context.params.slug }).populate({
+      path: 'owner'
+    }).exec()
+    post.views += 1
+    post.save()
+    const data = JSON.parse(JSON.stringify(post))
+    if (!data) {
+      return {
+        notFound: true,
+      }
+    }
 
-  const data = JSON.parse(JSON.stringify(post))
+    return {
+      props: { data }  // will be passed to the page component as props
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
 
   // const author = await User.findOne({ email: 'spman510@gmail.com' }).populate({ path: 'posts', select: 'title -_id -owner' }).exec()
 
   // console.log(author[0])
   // console.log(data.owner.fullname)
-  if (!data) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: { data }  // will be passed to the page component as props
-  }
 }

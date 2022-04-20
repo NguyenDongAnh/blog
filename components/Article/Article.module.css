@@ -11,8 +11,12 @@
     @apply text-5xl font-bold flex flex-wrap
 }
 
-.article .article_header__author_name {
+.article_header .article_header__author_name {
     @apply capitalize
+}
+
+.article_header .article_header__time_detail{
+    @apply flex items-center text-sm
 }
 
 .article .article_main {
