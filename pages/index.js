@@ -1,8 +1,8 @@
+import Head from 'next/head'
+import { Slider } from '@/components/Slider'
 import Post from '@/models/Post'
 import { Layout } from '@/components/Layout'
-import Head from 'next/head'
 import styles from './Home.module.css'
-import { Slider } from '@/components/Slider'
 
 export default function Home({ data }) {
   return (
@@ -13,8 +13,10 @@ export default function Home({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.main}>
-        <div className='max-w-7xl w-full'>
+        <div className='max-w-7xl w-full px-5'>
+          <div className='text-2xl font-semibold capitalize mb-4'>Bài viết mới</div>
           <Slider data={data} />
+          <div className='text-2xl font-semibold capitalize mb-4'>Các bài viết khác</div>
         </div>
       </div>
     </Layout>

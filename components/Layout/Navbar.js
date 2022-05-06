@@ -1,12 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { osName, browserName } from 'react-device-detect';
-import { useRouter } from 'next/router'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
 import styles from './Navbar.module.css'
 import classNames from 'classnames'
-import useDeviceDetect from '@/hooks/useDeviceDetect';
+import useDetectSize from '@/hooks/useSizeDetect';
 
 const SearchBar = () => {
     const [fuzzySearchValues, setfuzzySearchValues] = useState([])
@@ -18,7 +15,7 @@ const SearchBar = () => {
         // Dynamically load fuse.js
         const Fuse = (await import('fuse.js')).default
         const options = {
-            keys: ['author.tags.value']
+            keys: ['title']
         }
         const fuse = new Fuse(names, options)
         setSearchResults(fuse.search(value, { limit: 5 }))
@@ -27,7 +24,6 @@ const SearchBar = () => {
         setfuzzySearchValues(() => [
             {
                 "title": "Hướng dẫn sử dụng react-markdown",
-                "image": `/images/chandung.jpg`,
                 "author": {
                     "name": "John Scalzi",
                     "tags": [
@@ -39,7 +35,6 @@ const SearchBar = () => {
             },
             {
                 "title": "The Lock Artist",
-                "image": `/images/chandung.jpg`,
                 "author": {
                     "name": "Steve Hamilton",
                     "tags": [
@@ -60,27 +55,23 @@ const SearchBar = () => {
             <div className={styles.nav_search__icon}>
                 <Icon icon="codicon:search" />
             </div >
-            <div className={styles.nav_search_el}>
-                <input className={styles.nav_search__input} placeholder='Search' onChange={(e) => handleSearchChange(e, fuzzySearchValues)} />
+            <div className={styles.nav_search_item}>
+                <input className={styles.nav_search_item__input} placeholder='Search' onChange={(e) => handleSearchChange(e, fuzzySearchValues)} />
                 <span className={styles.nav_item__line}></span>
             </div>
-            <div className="absolute top-[60px] text-white w-full max-w-[390px] mt-1">
+            <div className={styles.nav_search_result}>
                 {searchResults.map((result) => {
-                    // console.log(result)
                     return (
                         <Link href="/" key={result.refIndex}>
-                            <a>
-                                <div className='w-full flex p-2 bg-zinc-700 border-b'>
-                                    {/* <div className='mr-2 flex justify-center content-center min-w-[100px] max-w-[100px] max-h-[100px]'>
-                                        <img
-                                            src={result.item.image}
-                                            className="w-full"
-                                        />
-                                    </div> */}
+                            <a href="/">
+                                <div className={styles.nav_search_result_element}>
                                     <div>
-                                        {result.item.title}
+                                        <div>
+                                            {result.item.title}
+                                        </div>
                                         <div className='text-xs'>
-                                            {result.item.description}
+                                            {/* {result.item.description} */}
+                                            abc123
                                         </div>
                                     </div>
                                 </div>
@@ -95,95 +86,93 @@ const SearchBar = () => {
 }
 
 const Navbar = () => {
-    const isMobile = useDeviceDetect()
+    const { isSm } = useDetectSize()
     const [isLeftSidebarActive, setIsLeftSidebarActive] = useState(false)
 
     const handleMenuButtonOnClick = (event) => {
-        document.body.classList.toggle(styles.lock_scrollbar)
+        document.body.classList.toggle('lock_scrollbar')
         setIsLeftSidebarActive((isLeftSidebarActive) => !isLeftSidebarActive)
     }
 
     return (
-        <div className={styles.nav} role="navigation" aria-label="Primary Navigation">
-            <div className={styles.nav_content}>
-                <div className={styles.nav_header}>
-                    {isMobile &&
-                        <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>
-                            <Icon icon="gg:menu" />
-                        </div>}
-                    <Link href="/">
-                        <a className={styles.nav_link}>
-                            <div className='flex w-[120px]'>
-                                <img
-                                    src={"/images/logo.png"}
-                                    className="w-full"
-                                />
-                            </div>
-                        </a>
-                    </Link>
-                </div>
-                <div className='flex'>
-                    <div className={classNames(styles.nav_main, isLeftSidebarActive ? classNames(styles.active,'z-[999]') : null)}>
-                        {isMobile &&
-                            <>
-                                <div className="flex flex-row xl:h-auto h-16 p-1 justify-center">
-                                    <div className={styles.nav_link}>
-                                        <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>
-                                            <Icon icon="gg:menu" />
-                                        </div>
-                                        <Link href="/">
-                                            <a className={styles.nav_link}>
-                                                <div className='flex w-[120px]'>
-                                                    <img
-                                                        src={"/images/logo.png"}
-                                                        className="w-[120px] h-[39px]"
-                                                    />
-                                                </div>
-                                            </a>
-                                        </Link>
+        <>
+
+            <div className={styles.nav} role="navigation" aria-label="Primary Navigation">
+                <div className={styles.nav_content}>
+                    <div className={styles.nav_header}>
+                        {isSm &&
+                            <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>
+                                <Icon icon="gg:menu" />
+                            </div>}
+                        <Link href="/">
+                            <a className={styles.nav_link}>
+                                <div className='flex w-[120px]'>
+                                    <img
+                                        src={"/images/logo.png"}
+                                        className="w-full"
+                                    />
+                                </div>
+                            </a>
+                        </Link>
+                    </div>
+                    <div className='flex'>
+                        <div className={classNames(styles.nav_main, isLeftSidebarActive ? classNames(styles.active, 'z-[101]') : null)}>
+                            {isSm && (
+                                <div className={styles.nav_link}>
+                                    <div className={styles.nav_menu__button} onClick={handleMenuButtonOnClick}>
+                                        <Icon icon="gg:menu" />
                                     </div>
+                                    <Link href="/">
+                                        <a className={styles.nav_link} href="/">
+                                            <div className='flex w-[120px]'>
+                                                <img
+                                                    src={"/images/logo.png"}
+                                                    className="w-[120px] h-[39px]"
+                                                />
+                                            </div>
+                                        </a>
+                                    </Link>
                                 </div>
-                            </>}
-                        <div className={styles.nav_item}>
-                            <Link href="/">
-                                <div className={styles.nav_link}>
-                                    <span className='my-auto'>BÀI VIẾT</span>
-                                    <span className={styles.nav_item__line}></span>
-                                </div>
-                            </Link>
+                            )}
+                            <div className={styles.nav_item}>
+                                <Link href="/">
+                                    <a href="/" className={styles.nav_link}>
+                                        <span className='my-auto'>BÀI VIẾT</span>
+                                        <span className={styles.nav_item__line}></span>
+                                    </a>
+                                </Link>
+                            </div>
+                            <div className={styles.nav_item}>
+                                <Link href="/blog/huong-dan-su-dung-react-markdown">
+                                    <a href="/blog/huong-dan-su-dung-react-markdown" className={styles.nav_link}>
+                                        <span className='my-auto'>SERIES</span>
+                                        <span className={styles.nav_item__line}></span>
+                                    </a>
+                                </Link>
+                            </div>
+                            <div className={styles.nav_item}>
+                                <Link href="/games">
+                                    <a href="/games" className={styles.nav_link}>
+                                        <span className='my-auto'>GAMES</span>
+                                        <span className={styles.nav_item__line}></span>
+                                    </a>
+                                </Link>
+                            </div>
                         </div>
-                        <div className={styles.nav_item}>
-                            <Link href="/blog/huong-dan-su-dung-react-markdown">
-                                <div className={styles.nav_link}>
-                                    <span className='my-auto'>SERIES</span>
-                                    <span className={styles.nav_item__line}></span>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className={styles.nav_item}>
-                            <Link href="/games">
-                                <div className={styles.nav_link}>
-                                    <span className='my-auto'>GAMES</span>
-                                    <span className={styles.nav_item__line}></span>
-                                </div>
-                            </Link>
+                        <SearchBar />
+                        {isSm && <div className={classNames('overlay', isLeftSidebarActive ? 'active' : null)} onClick={handleMenuButtonOnClick}></div>}
+                        <div className={styles.nav_footer}>
+                            <div className={styles.nav_footer__icon}>
+                                <Icon icon="fe:login" />
+                            </div>
+                            <span className='my-auto'>
+                                ĐĂNG NHẬP
+                            </span>
                         </div>
                     </div>
-                    {isMobile && <div className={classNames(styles.overlay, isLeftSidebarActive ? styles.active : null)} onClick={handleMenuButtonOnClick}></div>}
-                    <SearchBar />
-                    <div className={styles.nav_footer}>
-                        <div className={styles.nav_footer__icon}>
-                            <Icon icon="fe:login" />
-                        </div>
-                        <span className='my-auto'>
-                            ĐĂNG NHẬP
-                        </span>
-                    </div>
-                    {/* <div className={classNames(styles.overlay, styles.active)}>
-                    </div> */}
                 </div>
-            </div>
-        </div >
+            </div >
+        </>
     )
 }
 

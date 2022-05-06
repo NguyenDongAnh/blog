@@ -1,6 +1,5 @@
 .nav {
-    @apply w-full h-16 flex justify-center px-5 py-2 bg-zinc-900 border-b border-gray-500 fixed;
-    z-index: 99;
+    @apply w-full h-16 flex justify-center px-5 py-2 bg-zinc-900 border-b border-gray-500 fixed z-[100];
 }
 .nav .nav_content {
     @apply flex justify-between max-w-7xl w-full;
@@ -15,7 +14,7 @@
 }
 
 .nav .nav_main {
-    @apply sm:flex fixed sm:static sm:w-auto sm:translate-x-0 -translate-x-[240px] ease-in-out duration-300 w-[240px] left-0 bottom-0 top-0 bg-zinc-900 text-white font-normal text-lg mr-2;
+    @apply w-[240px] sm:w-auto sm:p-0 p-1 sm:flex fixed left-0 bottom-0 top-0  sm:static  sm:translate-x-0 -translate-x-[240px] ease-in-out duration-300  bg-zinc-900 text-white font-normal text-lg mr-2;
 }
 
 .nav_main.active {
@@ -23,7 +22,7 @@
 }
 
 .nav_link {
-    @apply flex py-1 px-3 sm:mx-1 justify-center text-center cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden;
+    @apply flex py-1 px-2 sm:mx-1 justify-center text-center cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden;
 }
 
 .nav_main .nav_item {
@@ -42,7 +41,7 @@
     @apply text-white font-normal text-lg lg:flex hidden;
 }
 
-.nav_search_el {
+.nav_search_item {
     @apply relative flex overflow-hidden;
 }
 
@@ -50,15 +49,21 @@
     @apply flex flex-col justify-center absolute p-2 top-0 bottom-0 text-pink-500;
 }
 
-.nav_search .nav_search__input {
+.nav_search .nav_search_item__input {
     @apply w-[390px] h-full bg-transparent outline-none pl-9;
 }
 
-.nav_search_el .nav_search__input:hover ~ .nav_item__line,
-.nav_search_el .nav_search__input:focus ~ .nav_item__line {
+.nav_search_item .nav_search_item__input:hover ~ .nav_item__line,
+.nav_search_item .nav_search_item__input:focus ~ .nav_item__line {
     @apply translate-x-0 ease-in-out duration-300;
 }
 
+.nav_search .nav_search_result {
+    @apply absolute top-[60px] text-white w-full max-w-[390px] mt-1;
+}
+.nav_search_result .nav_search_result_element {
+    @apply w-full flex p-2 bg-stone-500 border-b rounded-md;
+}
 .nav_footer {
     @apply flex justify-center p-2 mx-1 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden text-lg cursor-pointer;
 }
@@ -78,4 +83,3 @@
 .lock_scrollbar {
     @apply overflow-y-hidden;
 }
-

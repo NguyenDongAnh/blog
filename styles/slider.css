@@ -6,22 +6,18 @@
 }
 
 .swiper-slide {
-    text-align: center;
-    font-size: 18px;
     background: #fff;
     height: calc(100% - 35px) !important;
-    border: 1px solid;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 8px;
+    box-shadow: 4px 4px rgb(247, 247, 247);
+    padding: 16px;
     /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    /* -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center; */
+    flex-direction: column;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
 }

@@ -1,15 +1,15 @@
-import React, { useEffect, useState, Suspense, useMemo, useTransition, useCallback } from 'react'
+import React, { useEffect, useState, Suspense, useMemo, useTransition } from 'react'
 import { Icon } from '@iconify/react';
 import { isMobile, isTablet } from 'react-device-detect';
 import dynamic from 'next/dynamic'
 import { format } from '@lukeed/ms';
-import numeral from 'numeral';
 import { Sekeleton } from '@/components/Sekeleton'
 import { Avatar } from '@/components/Avatar'
 import TableOfContents from './TableOfContents'
 import FunctionButton from './FunctionButton'
 // import PropTypes from 'prop-types'
 import styles from './Article.module.css'
+import { formatNumber } from "utils";
 
 const Preview = dynamic(() => import('@/components/Preview').then((mod) => mod.Preview))
 
@@ -28,8 +28,6 @@ function Article({ data }) {
         const time = Math.round(data.content.length / 820) * 60 * 1000;
         return format(time, true).replace('minutes', 'min');
     }, [data.content])
-
-    const formatNumber = useCallback((number) => numeral(number).format('0.0a'), [])
 
     useEffect(() => {
         setDevice(!isMobile && !isTablet)
