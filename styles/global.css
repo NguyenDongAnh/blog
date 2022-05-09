@@ -33,7 +33,7 @@ pre {
     background-color: #000000;
     opacity: 0.6;
     display: none;
-    z-index: 99;
+    z-index: 100;
 }
 
 .overlay.active {

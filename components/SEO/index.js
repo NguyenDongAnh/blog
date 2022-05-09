@@ -1,6 +1,7 @@
+import { data } from 'autoprefixer'
 import Head from 'next/head'
 
-export default function SEO({ description, title, siteTitle, url, image, createdAt, updatedAt }) {
+export default function SEO({ description, title, siteTitle, url, image, createdAt, updatedAt, tags }) {
   return (
     <Head>
       <title>{`${title} - ${siteTitle}`}</title>
@@ -12,6 +13,9 @@ export default function SEO({ description, title, siteTitle, url, image, created
       <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
       <meta property="article:published_time" content={createdAt} />
       <meta property="article:modified_time" content={updatedAt} />
+      {tags.map((tag, idx) => {
+        return <meta property="article:tag" content={tag.slug} key={tag.slug} />
+      })}
       <meta property="og:updated_time" content={updatedAt} />
       <meta property="og:type" content="article" />
       <meta property="og:locale" content="vi_VN" />

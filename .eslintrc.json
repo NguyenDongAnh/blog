@@ -1,3 +1,18 @@
+// {
+//     "extends": ["next/core-web-vitals", "next/babel"]
+// }
 {
-    "extends": ["next/core-web-vitals", "next/babel"]
+	"root": true,
+	"extends": "next",
+	"rules": {
+		"no-unused-vars": [
+			"error",
+			{
+				"argsIgnorePattern": "^_",
+				"varsIgnorePattern": "^_"
+			}
+		],
+		"react/display-name": 0,
+		"indent": [2, "tab"]
+	}
 }

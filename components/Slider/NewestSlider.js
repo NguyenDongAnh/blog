@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { isMobile, isTablet } from 'react-device-detect';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
-// import "swiper/css/navigation";
-//import utils
-import { formatNumber } from "utils";
+
+import numeral from "numeral";
+
 import useSizeDetect from "@/hooks/useSizeDetect";
 
 export default ({ data }) => {
     const { isSm, isMd, isLg } = useSizeDetect()
-    
+
     return (
         <div className="h-[200px]">
             <Swiper
@@ -61,11 +58,11 @@ export default ({ data }) => {
                                     </div>
                                     <div className='flex items-center' aria-label='Number of likes'>
                                         <Icon icon="bxs:like" width="18" height="18" />
-                                        <span className='ml-1 mr-2 text-sm' >{formatNumber(120000)}</span>
+                                        <span className='ml-1 mr-2 text-sm' >{numeral(120000).format('0.0a')}</span>
                                     </div>
                                     <div className='flex items-center' aria-label='Number of dislikes'>
                                         <Icon icon="bxs:dislike" width="18" height="18" />
-                                        <span className='ml-1 mr-2 text-sm'>{formatNumber(1200)}</span>
+                                        <span className='ml-1 mr-2 text-sm'>{numeral(1200).format('0.0a')}</span>
                                     </div>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 .nav {
-    @apply w-full h-16 flex justify-center px-5 py-2 bg-zinc-900 border-b border-gray-500 fixed z-[100];
+    @apply w-full h-16 flex justify-center px-5 py-2 bg-zinc-900 border-b border-gray-500 fixed z-[99];
 }
 .nav .nav_content {
     @apply flex justify-between max-w-7xl w-full;
@@ -65,7 +65,7 @@
     @apply w-full flex p-2 bg-stone-500 border-b rounded-md;
 }
 .nav_footer {
-    @apply flex justify-center p-2 mx-1 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden text-lg cursor-pointer;
+    @apply flex justify-center items-center px-2 mx-1 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden text-lg cursor-pointer;
 }
 
 .nav_footer .nav_footer__icon {

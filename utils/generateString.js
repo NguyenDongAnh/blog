@@ -9,3 +9,5 @@ function generateString(length) {
 
     return result;
 }
+
+export default generateString

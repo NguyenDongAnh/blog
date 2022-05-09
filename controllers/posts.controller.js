@@ -5,7 +5,7 @@ const createPost = (req, res) => {
     try {
         let post = new Post({
             title: "Hướng dẫn sử dụng react-markdown",
-            owner: ObjectID('625b18a762caa864726b91f7'),
+            owner: ObjectID('6276a734e649fa9f7c65d883'),
             content:
                 `
 # A demo of \`react-markdown\`
@@ -117,7 +117,8 @@ A component by [Espen Hovlandsdal](https://espen.codes/)
 `
                     .replace(/\n[^\S\n]+/g, '\n'),
 
-            thumnail: '/images/rabbit.png'
+            thumnail: '/images/rabbit.png',
+            tags: [ObjectID("62776f4d40fab92b9477e980"), ObjectID("62776f6740fab92b9477e981")]
         });
 
         post.save();
@@ -135,7 +136,17 @@ const findPostBySlug = (req, res) => {
     })
 }
 
+const findManyPostInSlugArray = async (req, res) => {
+    try {
+        let posts = await Post.find({ slug: { $in: req.body.storedPostList } }).populate('owner').exec()
+        return res.status(200).json({ message: 'success', post: posts })
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
     createPost,
-    findPostBySlug
+    findPostBySlug,
+    findManyPostInSlugArray
 }

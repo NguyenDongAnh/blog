@@ -1,7 +1,16 @@
 const mongoose = require('mongoose')
 
 const TagSchema = mongoose.Schema({
-    nameTag: {
+    slug: {
+        type: String,
+        default: function () {
+            if (this.title) {
+                return slugify(this.name_tag).toLowerCase();
+            }
+            return null;
+        }
+    },
+    name_tag: {
         type: String,
         unique: true
     }

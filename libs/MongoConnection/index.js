@@ -24,6 +24,7 @@ const connection = mongoose.connect(MONGODB_URI, opts, (err, db) => {
 
 require("../../models/User")
 require("../../models/Post")
+require("../../models/Tag")
 require("../../models/Comment")
 
 module.exports = connection
