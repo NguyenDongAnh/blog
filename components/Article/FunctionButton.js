@@ -35,7 +35,7 @@ const FunctionButton = () => {
 				{!isStoredPost ? (
 					<Icon
 						icon="carbon:bookmark-add"
-						onClick={async e => {
+						onClick={async () => {
 							let storedPostList =
 								localStorage.getItem('storedPostList')
 							if (JSON.parse(storedPostList)) {
@@ -62,7 +62,7 @@ const FunctionButton = () => {
 					<Icon
 						icon="carbon:bookmark-filled"
 						className="text-blue-400"
-						onClick={async e => {
+						onClick={async () => {
 							try {
 								let storedPostList =
 									localStorage.getItem('storedPostList')
@@ -119,9 +119,6 @@ const FunctionButton = () => {
 						>
 							<Icon icon="logos:twitter" width={24} height={24} />
 						</a>
-						{/* <a href="#" className='mx-1'>
-                        <Icon icon="logos:linkedin-icon" />
-                    </a> */}
 					</div>
 				)}
 			</div>

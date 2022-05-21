@@ -1,15 +1,13 @@
-import { Layout } from '@/components/Layout'
 import { Article } from '@/components/Article'
 import SEO from '@/components/SEO'
 import Post from '@/models/Post'
 // import User from '@/models/User'
 export default function Blog({ data }) {
-
 	return (
-		<Layout>
+		<>
 			<SEO
 				title={data.title}
-				siteTitle={"rabbitworld.ddns.net"}
+				siteTitle={'rabbitworld.ddns.net'}
 				description={data.description}
 				url={data.url}
 				image={data.thumnail}
@@ -18,7 +16,7 @@ export default function Blog({ data }) {
 				tags={data.tags}
 			/>
 			<Article data={data} />
-		</Layout>
+		</>
 	)
 }
 
@@ -32,7 +30,7 @@ export async function getServerSideProps(context) {
 
 		if (!post) {
 			return {
-				notFound: true,
+				notFound: true
 			}
 		}
 
@@ -42,12 +40,11 @@ export async function getServerSideProps(context) {
 		const data = JSON.parse(JSON.stringify(post))
 
 		return {
-			props: { data }  // will be passed to the page component as props
+			props: { data } // will be passed to the page component as props
 		}
 	} catch (error) {
 		console.log(error)
 	}
-
 
 	// const author = await User.findOne({ email: 'spman510@gmail.com' }).populate({ path: 'posts', select: 'title -_id -owner' }).exec()
 

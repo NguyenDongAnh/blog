@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { NewestSlider } from '@/components/Slider'
 import Post from '@/models/Post'
-import { Layout } from '@/components/Layout'
 import styles from './Home.module.css'
 
 export default function Home(props) {
@@ -30,10 +29,10 @@ export default function Home(props) {
 			console.log(error)
 			localStorage.removeItem('storedPostList')
 		}
-		return () => { }
+		return () => {}
 	}, [])
 	return (
-		<Layout>
+		<>
 			<Head>
 				<title>Bài viết</title>
 				<meta name="description" content="Rabbit Home Page" />
@@ -48,6 +47,7 @@ export default function Home(props) {
 					<div className="text-2xl font-semibold capitalize mb-4">
 						bài viết đã lưu
 					</div>
+					{/* <Suspense fallback={<div>Loading ...</div>}> */}
 					{dataStoredPost.length ? (
 						dataStoredPost.map((post, idx) => {
 							return <div key={idx}>{post.title}</div>
@@ -57,12 +57,13 @@ export default function Home(props) {
 							<span>Không có bài viết nào được lưu</span>
 						</div>
 					)}
+					{/* </Suspense> */}
 					<div className="text-2xl font-semibold capitalize mb-4">
 						bài viết khác
 					</div>
 				</div>
 			</div>
-		</Layout>
+		</>
 	)
 }
 
@@ -73,7 +74,7 @@ export async function getServerSideProps(context) {
 			.populate({
 				path: 'owner'
 			})
-			.limit(8)
+			.limit(12)
 			.exec()
 
 		const dataNewestPost = JSON.parse(JSON.stringify(newestPost))

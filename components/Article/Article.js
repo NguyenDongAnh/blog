@@ -1,10 +1,5 @@
-import React, {
-	useEffect,
-	useState,
-	Suspense,
-	useMemo,
-	useTransition
-} from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState, useMemo, useTransition } from 'react'
 import { Icon } from '@iconify/react'
 import { isMobile, isTablet } from 'react-device-detect'
 import dynamic from 'next/dynamic'
@@ -13,13 +8,15 @@ import numeral from 'numeral'
 import { Sekeleton } from '@/components/Sekeleton'
 import { Avatar } from '@/components/Avatar'
 import TableOfContents from './TableOfContents'
+import Preview from '../Preview'
 import FunctionButton from './FunctionButton'
 // import PropTypes from 'prop-types'
 import styles from './Article.module.css'
 
-const Preview = dynamic(() =>
-	import('@/components/Preview').then(mod => mod.Preview)
-)
+// const Preview = dynamic(() => import('@/components/Preview'))
+// const TableOfContents = dynamic(() => import('./TableOfContents'), {
+// 	suspense: true
+// })
 
 function Article({ data }) {
 	const [device, setDevice] = useState()
@@ -135,7 +132,7 @@ function Article({ data }) {
 			</div>
 			<div className="mx-auto mb-10 max-w-7xl px-4 my-10">
 				<span className="text-xl font-semibold mr-2">Tags :</span>
-				{data.tags.map((tag, idx) => {
+				{data.tags.map(tag => {
 					return (
 						<div
 							className="inline-block py-1 px-3 ml-2 bg-gray-500 rounded text-white text-[14px]"
@@ -145,8 +142,6 @@ function Article({ data }) {
 						</div>
 					)
 				})}
-
-				{/* <div className='inline-block py-1 px-3 ml-2 bg-gray-500 rounded text-white text-[14px]'>NodeJS</div> */}
 			</div>
 		</div>
 	)

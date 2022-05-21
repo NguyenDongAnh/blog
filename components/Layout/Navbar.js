@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Icon } from '@iconify/react'
 import styles from './Navbar.module.css'
@@ -9,7 +9,6 @@ import { Avatar } from '@/components/Avatar'
 const SearchBar = () => {
 	const [fuzzySearchValues, setfuzzySearchValues] = useState([])
 	const [searchResults, setSearchResults] = useState([])
-	const [isAuthOpen, setIsAuthOpen] = useState()
 
 	const handleSearchChange = async (e, names) => {
 		const { value } = e.currentTarget
@@ -91,7 +90,7 @@ const Navbar = () => {
 	const { isSm } = useDetectSize()
 	const [isLeftSidebarActive, setIsLeftSidebarActive] = useState(false)
 
-	const handleMenuButtonOnClick = event => {
+	const handleMenuButtonOnClick = () => {
 		document.body.classList.toggle('lock_scrollbar')
 		setIsLeftSidebarActive(isLeftSidebarActive => !isLeftSidebarActive)
 	}
@@ -147,6 +146,7 @@ const Navbar = () => {
 												<img
 													src={'/images/logo.png'}
 													className="w-[120px] h-[39px]"
+													alt="logo"
 												/>
 											</div>
 										</a>

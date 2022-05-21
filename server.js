@@ -19,30 +19,6 @@ const app = next({ dev, port })
 const handle = app.getRequestHandler()
 const server = express()
 
-const { key, cert } = (() => {
-	try {
-		return {
-			key: fs.readFileSync(`./cert/rabbitworld.ddns.net/privkey.pem`),
-			cert: fs.readFileSync(`./cert/rabbitworld.ddns.net/fullchain.pem`)
-		}
-	} catch (e) {
-		return new Promise((res, rej) => {
-			pem.createCertificate(
-				{ days: 1, selfSigned: true },
-				function (err, keys) {
-					if (err) {
-						rej()
-					} else {
-						res({ key: keys.serviceKey, cert: keys.certificate })
-					}
-				}
-			)
-		})
-	}
-})()
-
-const httpsServer = https.createServer({ key, cert }, server).listen(443)
-
 server.use(function (request, response, next) {
 	if (
 		process.env.NODE_ENV != 'development' &&
@@ -124,4 +100,44 @@ app.prepare().then(() => {
 		if (err) throw err
 		console.log(`Server listening on the port::${port}`)
 	})
+})
+
+const { key, cert } = (() => {
+	try {
+		return {
+			key: fs.readFileSync(`./cert/rabbitworld.ddns.net/privkey.pem`),
+			cert: fs.readFileSync(`./cert/rabbitworld.ddns.net/fullchain.pem`)
+		}
+	} catch (e) {
+		return new Promise((res, rej) => {
+			pem.createCertificate(
+				{ days: 1, selfSigned: true },
+				function (err, keys) {
+					if (err) {
+						rej()
+					} else {
+						res({ key: keys.serviceKey, cert: keys.certificate })
+					}
+				}
+			)
+		})
+	}
+})()
+
+const httpsServer = https.createServer({ key, cert }, server).listen(443)
+
+const io = require('./libs/SocketIO')(httpsServer)
+io.on('connection', socket => {
+	console.log(socket.id)
+})
+
+io.on('disconnect', socket => {
+	console.log(disconnect, socket.connected)
+})
+
+io.engine.on('connection_error', err => {
+	console.log(err.req) // the request object
+	console.log(err.code) // the error code, for example 1
+	console.log(err.message) // the error message, for example "Session ID unknown"
+	console.log(err.context) // some additional error context
 })

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import classNames from 'classnames'
 import styles from './TableOfContents.module.css'
 
+let renderCount = 0
 const TableOfContents = ({ tableOfContents }) => {
+	console.log(++renderCount)
 	const [activeAnchorLink, setActiveAnchorLink] = useState({
 		prev: -1,
 		next: 0
 	})
-
 	const handleScroll = tableOfContents => {
 		if (activeAnchorLink != undefined) {
 			const scrollPosition = window.scrollY
@@ -35,18 +36,19 @@ const TableOfContents = ({ tableOfContents }) => {
 				tableOfContents[i].top <= scrollPosition + 116 &&
 				tableOfContents[i + 1].top - 116 >= scrollPosition
 			) {
-				await setActiveAnchorLink(() => {
-					return { prev: i, next: i + 1 }
-				})
-				return
+				setActiveAnchorLink({ prev: i, next: i + 1 })
+				return window.onscroll = () => handleScroll(tableOfContents)
 			}
 		}
 	}
 
-	useEffect(() => {
+	useLayoutEffect(() => {
+		// window.onscroll = () => handleScroll(tableOfContents)
 		handleOnload()
-		window.onscroll = () => handleScroll(tableOfContents)
-		return () => {}
+		return () => {
+			window.onscroll = null
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tableOfContents])
 
 	return (
@@ -58,15 +60,14 @@ const TableOfContents = ({ tableOfContents }) => {
 							return (
 								<a
 									href={`#${value.slug}`}
-									key={idx}
+									key={idx + value.slug}
 									onClick={async () => {
-										window.onscroll = null
-										await setActiveAnchorLink({
-											prev: idx,
-											next: idx + 1
-										})
-										window.onscroll = () =>
-											handleScroll(tableOfContents)
+										// window.onscroll = null
+										// await setActiveAnchorLink({
+										// 	prev: idx,
+										// 	next: idx + 1
+										// })
+										// window.onscroll = () => handleScroll(tableOfContents)
 									}}
 								>
 									<li
@@ -74,10 +75,10 @@ const TableOfContents = ({ tableOfContents }) => {
 											styles.article_sidebar_main__element,
 											idx === activeAnchorLink?.prev
 												? styles.active
-												: '',
-											value.tag === 'H1' ? 'pl-3' : '',
-											value.tag === 'H2' ? 'pl-7' : '',
-											value.tag === 'H3' ? 'pl-11' : ''
+												: null,
+											value.tag === 'H1' ? 'pl-3' : null,
+											value.tag === 'H2' ? 'pl-7' : null,
+											value.tag === 'H3' ? 'pl-11' : null
 										)}
 									>
 										{value.title}
