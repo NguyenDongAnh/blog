@@ -1,0 +1,4 @@
+.main {
+    @apply w-full h-[calc(100vh-64px)] flex absolute top-16 py-8 justify-center;
+    /* height: calc(100vh - theme('spacing.14')); */
+}

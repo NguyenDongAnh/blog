@@ -1,0 +1,4 @@
+.main {
+    @apply w-full max-h-[calc(100vh-64px)] h-full absolute top-16 ;
+    /* height: calc(100vh - theme('spacing.14')); */
+}
