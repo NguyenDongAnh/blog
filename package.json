@@ -13,8 +13,8 @@
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
-    "@codemirror/lang-markdown": "^0.19.6",
-    "@codemirror/language-data": "^0.19.2",
+    "@codemirror/lang-markdown": "^0.20.0",
+    "@codemirror/language-data": "^0.20.0",
     "@lukeed/ms": "^2.0.0",
     "@uiw/react-codemirror": "^4.7.0",
     "axios": "^0.24.0",

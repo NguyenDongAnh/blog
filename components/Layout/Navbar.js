@@ -155,32 +155,32 @@ const Navbar = () => {
 							)}
 							<div className={styles.nav_item}>
 								<Link href="/">
-									<div href="/" className={styles.nav_link}>
+									<a href="/" className={styles.nav_link}>
 										<span className="my-auto">
 											BÀI VIẾT
 										</span>
 										<span
 											className={styles.nav_item__line}
 										></span>
-									</div>
+									</a>
 								</Link>
 							</div>
 							<div className={styles.nav_item}>
-								<Link href="/blog/series">
-									<div
-										href="/blog/series"
+								<Link href="/publish/post">
+									<a
+										href="/publish/post"
 										className={styles.nav_link}
 									>
 										<span className="my-auto">SERIES</span>
 										<span
 											className={styles.nav_item__line}
 										></span>
-									</div>
+									</a>
 								</Link>
 							</div>
 							<div className={styles.nav_item}>
 								<Link href="/games">
-									<div
+									<a
 										href="/games"
 										className={styles.nav_link}
 									>
@@ -188,7 +188,7 @@ const Navbar = () => {
 										<span
 											className={styles.nav_item__line}
 										></span>
-									</div>
+									</a>
 								</Link>
 							</div>
 						</div>

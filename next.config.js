@@ -1,6 +1,6 @@
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
+// const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
 	reactStrictMode: true,
@@ -12,8 +12,8 @@ module.exports = {
 		BASE_SERVER: process.env.BASE_SERVER || 'https://rabbitworld.ddns.net'
 	},
 	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-		config.plugins.push(new DuplicatePackageCheckerPlugin())
-		config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}))
+		// config.plugins.push(new DuplicatePackageCheckerPlugin())
+		// config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}))
 		// config.plugins.push(
 		// 	new BundleAnalyzerPlugin({
 		// 		analyzerMode: 'server',

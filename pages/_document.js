@@ -65,10 +65,6 @@ class MyDocument extends Document {
 						}}
 					></script>
 					<link
-						href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.min.css"
-						rel="stylesheet"
-					/>
-					<link
 						href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
 						rel="stylesheet"
 					/>

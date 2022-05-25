@@ -1,27 +1,25 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useMemo, useTransition } from 'react'
+import React, {
+	useEffect,
+	useState,
+	useRef,
+	useMemo
+} from 'react'
 import { Icon } from '@iconify/react'
 import { isMobile, isTablet } from 'react-device-detect'
 import dynamic from 'next/dynamic'
 import { format } from '@lukeed/ms'
 import numeral from 'numeral'
-import { Sekeleton } from '@/components/Sekeleton'
 import { Avatar } from '@/components/Avatar'
 import TableOfContents from './TableOfContents'
-import Preview from '../Preview'
+import Preview from '@/components/Preview'
 import FunctionButton from './FunctionButton'
 // import PropTypes from 'prop-types'
 import styles from './Article.module.css'
 
-// const Preview = dynamic(() => import('@/components/Preview'))
-// const TableOfContents = dynamic(() => import('./TableOfContents'), {
-// 	suspense: true
-// })
-
 function Article({ data }) {
 	const [device, setDevice] = useState()
-	const [tableOfContents, setTableOfContents] = useState([])
-	const [isPending, startTransition] = useTransition()
+	const preview = useRef()
 
 	const createdDate = useMemo(() => {
 		const diff = Date.now() - new Date(data.createdAt).getTime()
@@ -104,31 +102,13 @@ function Article({ data }) {
 					<Preview
 						content={data.content}
 						device={device}
-						setTableOfContents={setTableOfContents}
-						startTransition={startTransition}
+						ref={preview}
 					/>
 				</div>
-				{device && (
-					<>
-						<Sekeleton isPending={isPending}>
-							<div className="w-full sticky max-h-[100vh] top-[96px]">
-								<div className="pl-3">
-									<Sekeleton.TextLine />
-								</div>
-								<div className="pl-7">
-									<Sekeleton.TextLine />
-								</div>
-								<div className="pl-11">
-									<Sekeleton.TextLine />
-								</div>
-								<div className="pl-3">
-									<Sekeleton.TextLine />
-								</div>
-							</div>
-						</Sekeleton>
-						<TableOfContents tableOfContents={tableOfContents} />
-					</>
-				)}
+				<TableOfContents
+					preview={preview}
+					device={device}
+				/>
 			</div>
 			<div className="mx-auto mb-10 max-w-7xl px-4 my-10">
 				<span className="text-xl font-semibold mr-2">Tags :</span>

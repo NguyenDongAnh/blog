@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, forwardRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkMath from 'remark-math'
 import remarkGFM from 'remark-gfm'
@@ -9,48 +9,13 @@ import rehypeHighlight from 'rehype-highlight'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Icon } from '@iconify/react'
 import styles from './Preview.module.css'
-import slugify from 'slugify'
 import Children from 'react-children-utilities'
 
-const Preview = props => {
-	const { content, device, setTableOfContents, startTransition } = props
-	const preview = useRef()
-
-	const getSlug = hTag => {
-		return slugify(hTag.innerText, {
-			lower: true, // convert to lower case, defaults to `false`
-			strict: true // strip special characters except replacement, defaults to `false`
-		})
-	}
-
-	useEffect(() => {
-		if (device) {
-			startTransition(() => {
-				const hTags = preview.current.querySelectorAll('h1, h2, h3')
-				let headings = []
-				const scrollPosition = window.scrollY
-				hTags.forEach((hTag, index) => {
-					const tag = hTag.tagName
-					const title = hTag.innerText
-					const slug = getSlug(hTag) + `-${index}`
-					hTag.setAttribute('id', slug)
-					headings.push({
-						tag: tag,
-						title: title,
-						slug: slug,
-						top: hTag.getBoundingClientRect().top + scrollPosition
-					})
-				})
-				setTableOfContents(() => headings)
-			})
-		}
-
-		return () => {}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [device])
+const Preview = forwardRef((props, ref) => {
+	const { content } = props
 
 	return (
-		<div className={styles.preview} ref={preview}>
+		<div className={styles.preview} ref={ref}>
 			<div className="markdown-body">
 				<ReactMarkdown
 					{...props}
@@ -60,11 +25,9 @@ const Preview = props => {
 						rehypeKatex,
 						[rehypeHighlight, { ignoreMissing: true, subset: true }]
 					]}
-					// rehypePlugins={[rehypeRaw, rehypeKatex]}
 					components={{
 						code({ node, children, inline, className, ...props }) {
 							if (!inline) {
-								console.log(Children.onlyText(children))
 								return (
 									<>
 										{children && (
@@ -91,7 +54,6 @@ const Preview = props => {
 											</CopyToClipboard>
 										)}
 										<code className={className} {...props}>
-											{/* {parseReact(toHtml(tree))} */}
 											{children}
 										</code>
 									</>
@@ -110,6 +72,6 @@ const Preview = props => {
 			</div>
 		</div>
 	)
-}
+})
 
 export default Preview
